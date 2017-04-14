@@ -3,15 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:FormsAssistControl"
              x:Class="FormsAssistControl.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:AverageToColorConverter x:Key="MyColorCvt" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <StackLayout>
         <Label Text="Uhu - Xamarin Forms" FontSize="Large" TextColor="Navy"  HorizontalOptions="Center" />
         <Button Text="Carregar Lista" Command="{Binding LoadDirectoryCommand}" BackgroundColor="Orange" TextColor="White"/>
         <Button Text="Limpar Lista" Command="{Binding ClearDirectoryCommand}" BackgroundColor="Purple" TextColor="White"/>
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
-            <ListView ItemsSource="{Binding Students}">
+            <ListView ItemsSource="{Binding Students}" x:Name="lvStudents">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell Text="{Binding Name}" Detail="{Binding Average}" />
+                    <ImageCell TextColor="{Binding Average, Converter={StaticResource MyColorCvt}}" Text="{Binding Name}" Detail="{Binding Average}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
